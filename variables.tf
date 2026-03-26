@@ -1,6 +1,4 @@
-# =============================================================================
-# PROVIDER VARIABLES
-# =============================================================================
+# Provider variables
 
 variable "hcloud_token" {
   description = "Hetzner Cloud API token"
@@ -8,9 +6,7 @@ variable "hcloud_token" {
   sensitive   = true
 }
 
-# =============================================================================
-# SERVERS MAP (for_each support)
-# =============================================================================
+# Servers map
 
 variable "servers" {
   description = "Map of server configurations. Each key is a unique identifier for the server."
@@ -18,9 +14,7 @@ variable "servers" {
   default     = {}
 }
 
-# =============================================================================
-# BASIC SERVER SETTINGS (defaults for servers map)
-# =============================================================================
+# Basic server settings
 
 variable "server_type" {
   description = "Server type (e.g., cx22, cx32, cx42, cpx11, cpx21, cax11)"
@@ -54,9 +48,7 @@ variable "labels" {
   default     = {}
 }
 
-# =============================================================================
-# SERVER BEHAVIOR SETTINGS
-# =============================================================================
+# Server behavior settings
 
 variable "backups" {
   description = "Enable automatic backups"
@@ -88,9 +80,7 @@ variable "allow_deprecated_images" {
   default     = false
 }
 
-# =============================================================================
-# SSH KEY SETTINGS
-# =============================================================================
+# SSH key settings
 
 variable "ssh_keys" {
   description = "Map of SSH key names to public key content to create. Keys are the name, values are the public key string."
@@ -104,9 +94,7 @@ variable "server_ssh_keys" {
   default     = []
 }
 
-# =============================================================================
-# NETWORK SETTINGS
-# =============================================================================
+# Network settings
 
 variable "networks" {
   description = "Map of network configurations to create. Each key is the network name."
@@ -136,9 +124,7 @@ variable "network_keys" {
   default     = []
 }
 
-# =============================================================================
-# PUBLIC NETWORK SETTINGS
-# =============================================================================
+# Public network settings
 
 variable "public_ipv4_enabled" {
   description = "Enable public IPv4 for servers"
@@ -152,9 +138,7 @@ variable "public_ipv6_enabled" {
   default     = true
 }
 
-# =============================================================================
-# FIREWALL SETTINGS
-# =============================================================================
+# Firewall settings
 
 variable "firewalls" {
   description = "Map of firewall configurations to create. Each key is the firewall name."
@@ -168,9 +152,7 @@ variable "firewall_keys" {
   default     = []
 }
 
-# =============================================================================
-# PLACEMENT GROUPS
-# =============================================================================
+# Placement groups
 
 variable "placement_groups" {
   description = "Map of placement group configurations to create. Each key is the placement group name."
@@ -184,9 +166,7 @@ variable "placement_group_key" {
   default     = null
 }
 
-# =============================================================================
-# CLOUD-INIT / USER DATA
-# =============================================================================
+# Cloud-init / user data
 
 variable "user_data" {
   description = "Cloud-init user data script or configuration"
@@ -194,9 +174,7 @@ variable "user_data" {
   default     = null
 }
 
-# =============================================================================
-# VOLUME SETTINGS
-# =============================================================================
+# Volume settings
 
 variable "volumes" {
   description = "Map of volume configurations to create and attach to servers."
@@ -220,9 +198,7 @@ variable "volume_format" {
   }
 }
 
-# =============================================================================
-# REVERSE DNS
-# =============================================================================
+# Reverse DNS
 
 variable "rdns" {
   description = "Default reverse DNS pointer for server IPv4 address"

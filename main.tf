@@ -1,6 +1,4 @@
-# =============================================================================
-# SSH KEYS
-# =============================================================================
+# SSH keys
 
 resource "hcloud_ssh_key" "ssh_key" {
   for_each = var.ssh_keys
@@ -10,9 +8,7 @@ resource "hcloud_ssh_key" "ssh_key" {
   labels     = var.labels
 }
 
-# =============================================================================
-# PLACEMENT GROUPS
-# =============================================================================
+# Placement groups
 
 resource "hcloud_placement_group" "placement_group" {
   for_each = var.placement_groups
@@ -22,9 +18,7 @@ resource "hcloud_placement_group" "placement_group" {
   labels = lookup(each.value, "labels", var.labels)
 }
 
-# =============================================================================
-# FIREWALLS
-# =============================================================================
+# Firewalls
 
 resource "hcloud_firewall" "firewall" {
   for_each = var.firewalls
@@ -45,9 +39,7 @@ resource "hcloud_firewall" "firewall" {
   }
 }
 
-# =============================================================================
-# NETWORKS
-# =============================================================================
+# Networks
 
 resource "hcloud_network" "network" {
   for_each = var.networks
@@ -68,9 +60,7 @@ resource "hcloud_network_subnet" "subnet" {
   network_zone = lookup(each.value, "network_zone", var.network_zone)
 }
 
-# =============================================================================
-# SERVERS
-# =============================================================================
+# Servers
 
 resource "hcloud_server" "server" {
   for_each = var.servers
@@ -83,10 +73,10 @@ resource "hcloud_server" "server" {
   labels      = lookup(each.value, "labels", var.labels)
 
   # Server behavior settings
-  backups            = lookup(each.value, "backups", var.backups)
-  delete_protection  = lookup(each.value, "delete_protection", var.delete_protection)
-  rebuild_protection = lookup(each.value, "rebuild_protection", var.rebuild_protection)
-  keep_disk          = lookup(each.value, "keep_disk", var.keep_disk)
+  backups                 = lookup(each.value, "backups", var.backups)
+  delete_protection       = lookup(each.value, "delete_protection", var.delete_protection)
+  rebuild_protection      = lookup(each.value, "rebuild_protection", var.rebuild_protection)
+  keep_disk               = lookup(each.value, "keep_disk", var.keep_disk)
   allow_deprecated_images = lookup(each.value, "allow_deprecated_images", var.allow_deprecated_images)
 
   # SSH keys
@@ -135,9 +125,7 @@ resource "hcloud_server" "server" {
   }
 }
 
-# =============================================================================
-# VOLUMES
-# =============================================================================
+# Volumes
 
 resource "hcloud_volume" "volume" {
   for_each = var.volumes
@@ -152,9 +140,7 @@ resource "hcloud_volume" "volume" {
   labels            = lookup(each.value, "labels", var.labels)
 }
 
-# =============================================================================
-# REVERSE DNS
-# =============================================================================
+# Reverse DNS
 
 resource "hcloud_rdns" "rdns" {
   for_each = {

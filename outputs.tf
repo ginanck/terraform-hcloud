@@ -1,6 +1,4 @@
-# =============================================================================
-# SERVER OUTPUTS
-# =============================================================================
+# Server outputs
 
 output "server_ids" {
   description = "Map of server keys to their IDs"
@@ -22,18 +20,14 @@ output "server_status" {
   value       = { for k, v in hcloud_server.server : k => v.status }
 }
 
-# =============================================================================
-# SSH KEY OUTPUTS
-# =============================================================================
+# SSH key outputs
 
 output "ssh_key_ids" {
   description = "Map of SSH key names to their IDs"
   value       = { for k, v in hcloud_ssh_key.ssh_key : k => v.id }
 }
 
-# =============================================================================
-# NETWORK OUTPUTS
-# =============================================================================
+# Network outputs
 
 output "network_ids" {
   description = "Map of network names to their IDs"
@@ -45,18 +39,14 @@ output "subnet_ids" {
   value       = { for k, v in hcloud_network_subnet.subnet : k => v.id }
 }
 
-# =============================================================================
-# FIREWALL OUTPUTS
-# =============================================================================
+# Firewall outputs
 
 output "firewall_ids" {
   description = "Map of firewall names to their IDs"
   value       = { for k, v in hcloud_firewall.firewall : k => v.id }
 }
 
-# =============================================================================
-# VOLUME OUTPUTS
-# =============================================================================
+# Volume outputs
 
 output "volume_ids" {
   description = "Map of volume names to their IDs"
@@ -68,9 +58,7 @@ output "volume_linux_devices" {
   value       = { for k, v in hcloud_volume.volume : k => v.linux_device }
 }
 
-# =============================================================================
-# PLACEMENT GROUP OUTPUTS
-# =============================================================================
+# Placement group outputs
 
 output "placement_group_ids" {
   description = "Map of placement group names to their IDs"
