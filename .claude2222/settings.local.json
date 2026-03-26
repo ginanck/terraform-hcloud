@@ -1,7 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(wc -l /Users/gkorkmaz/Projects/dev/terraform-hcloud-vm/modules/terraform-provider-hcloud/hcloud/*.go /Users/gkorkmaz/Projects/dev/terraform-hcloud-vm/modules/terraform-provider-hcloud/internal/*/*.go)"
-    ]
-  }
-}
