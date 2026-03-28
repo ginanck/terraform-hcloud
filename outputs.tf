@@ -20,6 +20,16 @@ output "server_status" {
   value       = { for k, v in hcloud_server.server : k => v.status }
 }
 
+output "server_datacenter" {
+  description = "Map of server keys to their datacenter"
+  value       = { for k, v in hcloud_server.server : k => v.datacenter }
+}
+
+output "server_primary_disk_size" {
+  description = "Map of server keys to their primary disk size in GB"
+  value       = { for k, v in hcloud_server.server : k => v.primary_disk_size }
+}
+
 # SSH key outputs
 
 output "ssh_key_ids" {

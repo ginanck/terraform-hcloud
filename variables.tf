@@ -80,6 +80,44 @@ variable "allow_deprecated_images" {
   default     = false
 }
 
+variable "shutdown_before_deletion" {
+  description = "Gracefully shut down the server before deleting it"
+  type        = bool
+  default     = false
+}
+
+variable "iso" {
+  description = "ISO image name or ID to mount on the server (e.g., for custom OS installation)"
+  type        = string
+  default     = null
+}
+
+variable "rescue" {
+  description = "Enable rescue mode with a specific rescue system (e.g., linux64)"
+  type        = string
+  default     = null
+}
+
+variable "ignore_remote_firewall_ids" {
+  description = "Ignore firewall IDs set outside of Terraform"
+  type        = bool
+  default     = false
+}
+
+# Primary IP settings
+
+variable "primary_ipv4" {
+  description = "Primary IP ID to assign as IPv4 address (must be an existing hcloud_primary_ip resource ID)"
+  type        = number
+  default     = null
+}
+
+variable "primary_ipv6" {
+  description = "Primary IP ID to assign as IPv6 address (must be an existing hcloud_primary_ip resource ID)"
+  type        = number
+  default     = null
+}
+
 # SSH key settings
 
 variable "ssh_keys" {
@@ -168,8 +206,20 @@ variable "placement_group_key" {
 
 # Cloud-init / user data
 
+variable "users" {
+  description = "List of users to create on servers via cloud-init"
+  type = list(object({
+    name                = string
+    groups              = optional(string, "sudo")
+    shell               = optional(string, "/bin/bash")
+    sudo                = optional(string, "ALL=(ALL) NOPASSWD:ALL")
+    ssh_authorized_keys = optional(list(string), [])
+  }))
+  default = []
+}
+
 variable "user_data" {
-  description = "Cloud-init user data script or configuration"
+  description = "Cloud-init user data script or configuration. If both users and user_data are set, user_data takes precedence."
   type        = string
   default     = null
 }

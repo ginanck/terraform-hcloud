@@ -1,3 +1,28 @@
+# Cloud-init user data generation from users variable
+
+locals {
+  cloud_config_users = length(var.users) > 0 ? join("\n", [
+    "#cloud-config",
+    yamlencode({
+      users = concat(["default"], [
+        for user in var.users : merge(
+          {
+            name   = user.name
+            groups = user.groups
+            shell  = user.shell
+            sudo   = user.sudo
+          },
+          length(user.ssh_authorized_keys) > 0 ? {
+            ssh_authorized_keys = user.ssh_authorized_keys
+          } : {}
+        )
+      ])
+    })
+  ]) : null
+
+  effective_user_data = var.user_data != null ? var.user_data : local.cloud_config_users
+}
+
 # SSH keys
 
 resource "hcloud_ssh_key" "ssh_key" {
@@ -73,11 +98,19 @@ resource "hcloud_server" "server" {
   labels      = lookup(each.value, "labels", var.labels)
 
   # Server behavior settings
-  backups                 = lookup(each.value, "backups", var.backups)
-  delete_protection       = lookup(each.value, "delete_protection", var.delete_protection)
-  rebuild_protection      = lookup(each.value, "rebuild_protection", var.rebuild_protection)
-  keep_disk               = lookup(each.value, "keep_disk", var.keep_disk)
-  allow_deprecated_images = lookup(each.value, "allow_deprecated_images", var.allow_deprecated_images)
+  backups                  = lookup(each.value, "backups", var.backups)
+  delete_protection        = lookup(each.value, "delete_protection", var.delete_protection)
+  rebuild_protection       = lookup(each.value, "rebuild_protection", var.rebuild_protection)
+  keep_disk                = lookup(each.value, "keep_disk", var.keep_disk)
+  allow_deprecated_images  = lookup(each.value, "allow_deprecated_images", var.allow_deprecated_images)
+  shutdown_before_deletion = lookup(each.value, "shutdown_before_deletion", var.shutdown_before_deletion)
+
+  # ISO and rescue mode
+  iso    = lookup(each.value, "iso", var.iso)
+  rescue = lookup(each.value, "rescue", var.rescue)
+
+  # Firewall behavior
+  ignore_remote_firewall_ids = lookup(each.value, "ignore_remote_firewall_ids", var.ignore_remote_firewall_ids)
 
   # SSH keys
   ssh_keys = lookup(each.value, "ssh_keys", var.server_ssh_keys)
@@ -94,12 +127,14 @@ resource "hcloud_server" "server" {
   ]
 
   # User data (cloud-init)
-  user_data = lookup(each.value, "user_data", var.user_data)
+  user_data = lookup(each.value, "user_data", local.effective_user_data)
 
   # Public network configuration
   public_net {
     ipv4_enabled = lookup(each.value, "public_ipv4_enabled", var.public_ipv4_enabled)
     ipv6_enabled = lookup(each.value, "public_ipv6_enabled", var.public_ipv6_enabled)
+    ipv4         = lookup(each.value, "primary_ipv4", var.primary_ipv4)
+    ipv6         = lookup(each.value, "primary_ipv6", var.primary_ipv6)
   }
 
   # Network attachment
