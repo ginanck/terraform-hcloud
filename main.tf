@@ -98,11 +98,11 @@ resource "hcloud_server" "server" {
   labels      = lookup(each.value, "labels", var.labels)
 
   # Server behavior settings
-  backups                 = lookup(each.value, "backups", var.backups)
-  delete_protection       = lookup(each.value, "delete_protection", var.delete_protection)
-  rebuild_protection      = lookup(each.value, "rebuild_protection", var.rebuild_protection)
-  keep_disk               = lookup(each.value, "keep_disk", var.keep_disk)
-  allow_deprecated_images = lookup(each.value, "allow_deprecated_images", var.allow_deprecated_images)
+  backups                  = lookup(each.value, "backups", var.backups)
+  delete_protection        = lookup(each.value, "delete_protection", var.delete_protection)
+  rebuild_protection       = lookup(each.value, "rebuild_protection", var.rebuild_protection)
+  keep_disk                = lookup(each.value, "keep_disk", var.keep_disk)
+  allow_deprecated_images  = lookup(each.value, "allow_deprecated_images", var.allow_deprecated_images)
   shutdown_before_deletion = lookup(each.value, "shutdown_before_deletion", var.shutdown_before_deletion)
 
   # ISO and rescue mode
