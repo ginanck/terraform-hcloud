@@ -399,7 +399,6 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_allow_deprecated_images"></a> [allow\_deprecated\_images](#input\_allow\_deprecated\_images) | Allow use of deprecated images | `bool` | `false` | no |
 | <a name="input_backups"></a> [backups](#input\_backups) | Enable automatic backups | `bool` | `false` | no |
 | <a name="input_delete_protection"></a> [delete\_protection](#input\_delete\_protection) | Enable delete protection (prevents accidental deletion) | `bool` | `false` | no |
 | <a name="input_firewall_keys"></a> [firewall\_keys](#input\_firewall\_keys) | Default list of firewall keys to attach to servers | `list(string)` | `[]` | no |

@@ -74,12 +74,6 @@ variable "keep_disk" {
   default     = false
 }
 
-variable "allow_deprecated_images" {
-  description = "Allow use of deprecated images"
-  type        = bool
-  default     = false
-}
-
 variable "shutdown_before_deletion" {
   description = "Gracefully shut down the server before deleting it"
   type        = bool
